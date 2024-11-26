@@ -169,8 +169,8 @@ class BookController {
             $prefix = $resourceType . '-' . $currentYear . '-';
             
             $query = "SELECT MAX(accession_number) as last_number 
-                      FROM library_resources 
-                      WHERE accession_number LIKE :prefix";
+                    FROM library_resources 
+                    WHERE accession_number LIKE :prefix";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(":prefix", $prefix . '%');
             $stmt->execute();

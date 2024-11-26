@@ -184,9 +184,9 @@ $error_message = Session::getFlash('error');
                                         <label class="form-label">ISBN</label>
                                         <input type="text" class="form-control" name="isbn" id="isbn">
                                     </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">Accession Number</label>
-                                        <input type="text" class="form-control" name="accession_number" id="accession_number">
+                                    <div class="mb-3">
+                                        <label for="accession_number" class="form-label">Accession Number</label>
+                                        <input type="text" class="form-control" id="accession_number" name="accession_number" readonly>
                                     </div>
                                 </div>
                                 
@@ -244,6 +244,12 @@ $error_message = Session::getFlash('error');
                     document.getElementById('category').value = book.category;
                     document.getElementById('accession_number').value = book.accession_number;
                 });
+            });
+
+            // Handle adding new book to reset/generate accession number
+            const addNewBookButton = document.querySelector('button[data-bs-target="#bookModal"]');
+            addNewBookButton.addEventListener('click', function() {
+                document.getElementById('accession_number').value = ''; // Clear for auto-generation
             });
         });
     </script>

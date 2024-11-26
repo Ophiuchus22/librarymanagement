@@ -174,6 +174,9 @@ $error_message = Session::getFlash('error');
                                             </button>
                                         </form>
                                         <?php endif; ?>
+                                        <button class="btn btn-sm btn-info view-user">
+                                            <i class="bi bi-eye"></i> View
+                                        </button>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>

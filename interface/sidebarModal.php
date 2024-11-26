@@ -41,11 +41,35 @@ if (!isset($_SESSION['user_id'])) {
                 </li>
                 <?php endif; ?>
                 
-                <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2 text-light rounded py-2 px-3" href="resources.php">
+                <li class="nav-item dropdown">
+                    <a class="nav-link d-flex align-items-center gap-2 text-light rounded py-2 px-3 dropdown-toggle" 
+                    href="#" 
+                    id="resourcesDropdown" 
+                    role="button" 
+                    data-bs-toggle="dropdown" 
+                    aria-expanded="false">
                         <i class="bi bi-book"></i>
                         <span>Resources</span>
                     </a>
+                    <ul class="dropdown-menu bg-dark" aria-labelledby="resourcesDropdown">
+                        <?php if ($_SESSION['role'] === 'admin'): ?>
+                        <li>
+                            <a class="dropdown-item text-light d-flex align-items-center" href="books.php">
+                                <i class="bi bi-journal-bookmark me-2"></i>Book Management
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item text-light d-flex align-items-center" href="periodicals.php">
+                                <i class="bi bi-journal-text me-2"></i>Periodicals Management
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item text-light d-flex align-items-center" href="media-resources.php">
+                                <i class="bi bi-disc me-2"></i>Media Resources Management
+                            </a>
+                        </li>
+                        <?php endif; ?>
+                    </ul>
                 </li>
                 
                 <li class="nav-item">
@@ -96,6 +120,30 @@ if (!isset($_SESSION['user_id'])) {
     color: #edf2f7;
 }
 
+/* Dropdown Styles */
+.dropdown-menu {
+    background-color: #2d3748 !important;
+    border: none;
+    margin-top: 0.25rem;
+    padding: 0;
+}
+
+.dropdown-item {
+    color: #a0aec0 !important;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dropdown-item:hover {
+    background-color: #4a5568 !important;
+    color: #edf2f7 !important;
+}
+
+.dropdown-toggle::after {
+    color: #a0aec0;
+    margin-left: 0.5rem;
+}
+
 /* Active State (Optional, add logic for active menu) */
 .nav-link.active {
     background-color: #4a5568;
@@ -108,5 +156,37 @@ if (!isset($_SESSION['user_id'])) {
         width: 100%;
         position: relative;
     }
+    
+    .dropdown-menu {
+        position: static;
+        display: none;
+        background-color: transparent !important;
+    }
+    
+    .dropdown-menu.show {
+        display: block;
+        position: static;
+        background-color: transparent !important;
+    }
+    
+    .dropdown-item {
+        padding-left: 2rem;
+        background-color: transparent !important;
+    }
 }
 </style>
+
+<!-- Required Bootstrap and Popper.js scripts for dropdown functionality -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var dropdownToggle = document.querySelector('#resourcesDropdown');
+    var dropdownMenu = dropdownToggle.nextElementSibling;
+    
+    dropdownToggle.addEventListener('click', function(e) {
+        dropdownMenu.classList.toggle('show');
+        this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
+    });
+});
+</script>

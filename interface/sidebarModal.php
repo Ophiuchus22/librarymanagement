@@ -25,6 +25,7 @@ if (!isset($_SESSION['user_id'])) {
         <!-- Navigation Menu -->
         <nav class="nav-menu">
             <ul class="nav flex-column gap-2">
+                <?php if ($_SESSION['role'] === 'admin'): ?>
                 <li class="nav-item">
                     <a class="nav-link d-flex align-items-center gap-2 text-light rounded py-2 px-3" href="dashboard.php">
                         <i class="bi bi-speedometer2"></i>
@@ -32,14 +33,12 @@ if (!isset($_SESSION['user_id'])) {
                     </a>
                 </li>
                 
-                <?php if ($_SESSION['role'] === 'admin'): ?>
                 <li class="nav-item">
                     <a class="nav-link d-flex align-items-center gap-2 text-light rounded py-2 px-3" href="users.php">
                         <i class="bi bi-people"></i>
                         <span>User Management</span>
                     </a>
                 </li>
-                <?php endif; ?>
                 
                 <li class="nav-item dropdown">
                     <a class="nav-link d-flex align-items-center gap-2 text-light rounded py-2 px-3 dropdown-toggle" 
@@ -52,7 +51,6 @@ if (!isset($_SESSION['user_id'])) {
                         <span>Resources</span>
                     </a>
                     <ul class="dropdown-menu bg-dark" aria-labelledby="resourcesDropdown">
-                        <?php if ($_SESSION['role'] === 'admin'): ?>
                         <li>
                             <a class="dropdown-item text-light d-flex align-items-center" href="books.php">
                                 <i class="bi bi-journal-bookmark me-2"></i>Book Management
@@ -68,7 +66,6 @@ if (!isset($_SESSION['user_id'])) {
                                 <i class="bi bi-disc me-2"></i>Media Resources Management
                             </a>
                         </li>
-                        <?php endif; ?>
                     </ul>
                 </li>
                 
@@ -78,6 +75,30 @@ if (!isset($_SESSION['user_id'])) {
                         <span>Borrowings</span>
                     </a>
                 </li>
+                <?php endif; ?>
+
+                <?php if (in_array($_SESSION['role'], ['student', 'faculty'])): ?>
+                <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center gap-2 text-light rounded py-2 px-3" href="bookcatalog.php">
+                        <i class="bi bi-journal-bookmark"></i>
+                        <span>Book Catalog</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center gap-2 text-light rounded py-2 px-3" href="account.php">
+                        <i class="bi bi-person-circle"></i>
+                        <span>Account Management</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center gap-2 text-light rounded py-2 px-3" href="borrowing-history.php">
+                        <i class="bi bi-clock-history"></i>
+                        <span>Borrowing History</span>
+                    </a>
+                </li>
+                <?php endif; ?>
                 
                 <li class="nav-item mt-4">
                     <a class="nav-link d-flex align-items-center gap-2 text-danger rounded py-2 px-3" href="logout.php">
@@ -89,6 +110,8 @@ if (!isset($_SESSION['user_id'])) {
         </nav>
     </div>
 </div>
+
+<!-- Existing scripts and styles remain the same -->
 
 <style>
 /* General Sidebar Styles */
